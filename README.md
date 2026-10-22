@@ -22,7 +22,7 @@ Idee / Issue → Codex plant → lokaler Coding-Agent implementiert
 3. Starte den lokalen Agenten im Repository:
 
 ```powershell
-codex exec --oss --local-provider ollama --model qwen2.5-coder:7b --sandbox workspace-write --ask-for-approval on-request "Lies .codex/handoff.md. Implementiere ausschließlich diesen Auftrag. Führe die genannten Tests aus. Ändere keine Secrets, CI-Konfiguration oder Deployment-Dateien."
+codex exec --oss --local-provider ollama --model qwen2.5-coder:7b -c 'model_reasoning_effort="none"' --sandbox workspace-write --ask-for-approval on-request "Lies .codex/handoff.md. Implementiere ausschließlich diesen Auftrag. Führe die genannten Tests aus. Ändere keine Secrets, CI-Konfiguration oder Deployment-Dateien."
 ```
 
 4. Lass Codex die uncommitted Änderungen gegen den Handoff prüfen.
