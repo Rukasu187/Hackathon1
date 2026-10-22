@@ -1,0 +1,22 @@
+# Lokale Konfiguration und Geheimnisse
+.env
+.env.*
+!.env.example
+
+# Abhängigkeiten und Builds
+node_modules/
+dist/
+build/
+coverage/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# IDE und Betriebssystem
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
