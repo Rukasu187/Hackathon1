@@ -20,3 +20,6 @@ venv/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Lokale KI-Ausgaben können Projektkontext enthalten und werden nicht versioniert.
+.codex/local-draft.md

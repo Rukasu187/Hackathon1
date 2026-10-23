@@ -15,6 +15,6 @@
 
 ## Übergabe zwischen Agenten
 - Codex erstellt oder aktualisiert `.codex/handoff.md`.
-- Der lokale Coding-Agent implementiert ausschließlich diesen Auftrag.
-- Der lokale Coding-Agent beendet jeden Lauf mit einem strukturierten Bericht in `.codex/local-worker-report.md`.
-- Codex prüft danach den Diff gegen den Handoff.
+- Die lokale KI arbeitet im Local-first-Modus: Sie erhält nur den Handoff und explizit freigegebene Dateien und liefert einen strukturierten Entwurf, keinen autonomen Tool-Lauf.
+- Der Entwurf wird in `.codex/local-draft.md` gespeichert und enthält Kurzplan, Patch, Tests und Risiken.
+- Codex prüft danach Entwurf, Diff und Tests gegen den Handoff, bevor Änderungen übernommen werden.

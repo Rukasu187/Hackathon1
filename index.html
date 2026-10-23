@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Demo der Zusammenarbeit von Codex und lokaler KI." />
+    <title>Codex × lokale KI | Workflow</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow">Hackathon · Zusammenarbeit sichtbar machen</p>
+        <h1 id="page-title">Codex × lokale KI</h1>
+        <p class="intro">Ein klarer Ablauf: Du gibst das Ziel vor, Codex steuert und prüft, die lokale KI liefert abgegrenzte Entwürfe.</p>
+        <button id="start-flow" type="button">Ablauf abspielen <span aria-hidden="true">→</span></button>
+        <p id="flow-status" class="status" aria-live="polite">Bereit für den Start.</p>
+      </section>
+
+      <section class="workflow" aria-labelledby="workflow-title">
+        <div class="section-heading">
+          <p class="eyebrow">Der gesamte Ablauf</p>
+          <h2 id="workflow-title">Von deiner Idee zum geprüften Ergebnis</h2>
+        </div>
+        <ol class="steps">
+          <li class="step" data-step="1"><span class="number">01</span><div><h3>Auftrag</h3><p>Du beschreibst, was entstehen soll – zum Beispiel eine Website.</p></div></li>
+          <li class="step" data-step="2"><span class="number">02</span><div><h3>Planung</h3><p>Codex grenzt Umfang, Dateien, Tests und Risiken nachvollziehbar ein.</p></div></li>
+          <li class="step" data-step="3"><span class="number">03</span><div><h3>Handoff</h3><p>Der präzise Auftrag landet in <code>.codex/handoff.md</code>.</p></div></li>
+          <li class="step" data-step="4"><span class="number">04</span><div><h3>Lokale KI</h3><p>Sie erstellt einen abgegrenzten Code- oder Inhaltsentwurf auf deinem Rechner.</p></div></li>
+          <li class="step" data-step="5"><span class="number">05</span><div><h3>Codex-Prüfung</h3><p>Codex prüft Diff, Qualität und Tests – und korrigiert bei Bedarf.</p></div></li>
+          <li class="step" data-step="6"><span class="number">06</span><div><h3>Ergebnis</h3><p>Du erhältst ein getestetes Resultat und eine verständliche Übergabe.</p></div></li>
+        </ol>
+      </section>
+
+      <section class="roles" aria-labelledby="roles-title">
+        <div class="section-heading">
+          <p class="eyebrow">Was passiert wo?</p>
+          <h2 id="roles-title">Klare Rollen, keine Black Box</h2>
+        </div>
+        <div class="role-grid">
+          <article><span class="role-icon" aria-hidden="true">✦</span><h3>Codex</h3><p>Übersetzt dein Ziel in einen Plan, steuert die Arbeit, prüft Änderungen und erklärt das Ergebnis.</p></article>
+          <article><span class="role-icon" aria-hidden="true">⌘</span><h3>Lokale KI</h3><p>Erstellt eng begrenzte Entwürfe auf deinem Rechner. Deine Daten verlassen dafür nicht automatisch den lokalen Ablauf.</p></article>
+          <article><span class="role-icon" aria-hidden="true">↗</span><h3>GitHub &amp; Notion</h3><p>GitHub bewahrt Code und Reviews; Notion hält Aufgaben, Entscheidungen und Teamwissen zusammen.</p></article>
+        </div>
+      </section>
+
+      <section class="note" aria-label="Sicherheitsprinzip">
+        <p><strong>Kontrollprinzip:</strong> Keine Commits, Pushes, Merges oder Deployments passieren ohne deine Freigabe.</p>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
