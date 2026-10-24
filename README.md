@@ -56,3 +56,5 @@ Codex bleibt für Architektur, Security, Integration und den finalen Test-Review
 Die vollständige Anleitung mit Rollen, Sicherheitsregeln und Aufgabenrouting findest du in [docs/local-first-workflow.md](docs/local-first-workflow.md).
 
 Der nachvollziehbare End-to-End-Test der Pipeline ist in [docs/habit-tracker-pipeline-test.md](docs/habit-tracker-pipeline-test.md) dokumentiert.
+
+Für Außenstehende gibt es eine kompakte Übersicht mit Funktionsstand, Testnachweis, Startanleitung und Grenzen: [docs/project-status.md](docs/project-status.md).

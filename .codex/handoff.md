@@ -23,3 +23,7 @@ Die browserlokale Habit-Tracker-App funktional und visuell zu einer kleinen, all
 - Statische Prüfung und `git diff --check` erfolgreich.
 - Browserprüfung erfolgreich: Gewohnheit anlegen, Erledigt-Status mit Fortschritt/Streak, Offen-Filter, Bearbeiten, Reload-Persistenz und JSON-Export.
 - Der lokale CSS-Entwurf wurde nicht übernommen, da der Worker keine neue, zum Auftrag passende Ausgabe erzeugte. Die abhängige Drei-Datei-Erweiterung wurde daher als erlaubte Ausnahme durch Codex umgesetzt.
+
+## Öffentliche Dokumentation
+- `docs/project-status.md` fasst Funktionsstand, Ablauf, Tests, Grenzen und die lokale Startanleitung für Außenstehende zusammen.
+- `README.md` verlinkt auf diese Übersicht.
