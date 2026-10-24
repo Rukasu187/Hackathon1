@@ -3,51 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Demo der Zusammenarbeit von Codex und lokaler KI." />
-    <title>Codex × lokale KI | Workflow</title>
+    <meta name="description" content="Lokales Hackathon-Team-Dashboard." />
+    <title>Hackathon HQ</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main>
-      <section class="hero" aria-labelledby="page-title">
-        <p class="eyebrow">Hackathon · Zusammenarbeit sichtbar machen</p>
-        <h1 id="page-title">Codex × lokale KI</h1>
-        <p class="intro">Ein klarer Ablauf: Du gibst das Ziel vor, Codex steuert und prüft, die lokale KI liefert abgegrenzte Entwürfe.</p>
-        <button id="start-flow" type="button">Ablauf abspielen <span aria-hidden="true">→</span></button>
-        <p id="flow-status" class="status" aria-live="polite">Bereit für den Start.</p>
-      </section>
-
-      <section class="workflow" aria-labelledby="workflow-title">
-        <div class="section-heading">
-          <p class="eyebrow">Der gesamte Ablauf</p>
-          <h2 id="workflow-title">Von deiner Idee zum geprüften Ergebnis</h2>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#overview"><span>✦</span> Hackathon HQ</a>
+        <p class="event">Ideathon · Team Alpha<br /><strong>Tag 1 von 3</strong></p>
+        <nav aria-label="Bereiche">
+          <a class="nav-link active" href="#overview">Übersicht</a><a class="nav-link" href="#tasks">Aufgaben</a><a class="nav-link" href="#ideas">Ideen</a><a class="nav-link" href="#pitch">Pitch</a>
+        </nav>
+        <div class="side-card"><p class="label">Nächster Meilenstein</p><strong>Problem auswählen</strong><span>Heute · 16:00 Uhr</span></div>
+        <div class="side-links"><a href="https://github.com/Rukasu187/Hackathon1" target="_blank" rel="noreferrer">↗ GitHub-Projekt</a><a href="https://app.notion.com/p/40132468968681ffa154d44b8dd3598e?pvs=204" target="_blank" rel="noreferrer">↗ Notion HQ</a></div>
+      </aside>
+      <main>
+        <header class="topbar" id="overview"><div><p class="eyebrow">Guten Morgen, Team Alpha</p><h1>Bereit für den nächsten Durchbruch?</h1></div><div class="team" aria-label="Sechs Teammitglieder"><span>LR</span><span>MK</span><span>AS</span><span>JN</span><span>EP</span><span>+1</span></div></header>
+        <section class="stats" aria-label="Projektstatus">
+          <article><span class="label">Fortschritt</span><strong>42%</strong><div class="progress"><i style="width:42%"></i></div><small>5 von 12 Aufgaben erledigt</small></article>
+          <article><span class="label">Heute wichtig</span><strong>3</strong><small>Aufgaben mit hoher Priorität</small></article>
+          <article><span class="label">Ideen im Rennen</span><strong>4</strong><small>Eine Entscheidung bis 16:00 Uhr</small></article>
+          <article><span class="label">Pitch-Readiness</span><strong id="pitch-score">0/5</strong><small>Checkliste vervollständigen</small></article>
+        </section>
+        <section class="section" id="tasks"><div class="section-header"><div><p class="eyebrow">Arbeitsboard</p><h2>Heute im Fokus</h2></div><div class="filters"><button class="filter active" data-filter="all">Alle</button><button class="filter" data-filter="Produkt">Produkt</button><button class="filter" data-filter="Recherche">Recherche</button><button class="filter" data-filter="Design">Design</button></div></div><div class="task-grid" id="task-grid"></div></section>
+        <div class="two-column">
+          <section class="section" id="ideas"><div class="section-header"><div><p class="eyebrow">Entscheidung vorbereiten</p><h2>Ideen im Rennen</h2></div><span class="hint">Klick = Stimme</span></div><div class="idea-list" id="idea-list"></div></section>
+          <section class="section" id="pitch"><div class="section-header"><div><p class="eyebrow">Finale Präsentation</p><h2>Pitch-Checkliste</h2></div><span class="hint">wird lokal gespeichert</span></div><ul class="checklist" id="checklist"></ul></section>
         </div>
-        <ol class="steps">
-          <li class="step" data-step="1"><span class="number">01</span><div><h3>Auftrag</h3><p>Du beschreibst, was entstehen soll – zum Beispiel eine Website.</p></div></li>
-          <li class="step" data-step="2"><span class="number">02</span><div><h3>Planung</h3><p>Codex grenzt Umfang, Dateien, Tests und Risiken nachvollziehbar ein.</p></div></li>
-          <li class="step" data-step="3"><span class="number">03</span><div><h3>Handoff</h3><p>Der präzise Auftrag landet in <code>.codex/handoff.md</code>.</p></div></li>
-          <li class="step" data-step="4"><span class="number">04</span><div><h3>Lokale KI</h3><p>Sie erstellt einen abgegrenzten Code- oder Inhaltsentwurf auf deinem Rechner.</p></div></li>
-          <li class="step" data-step="5"><span class="number">05</span><div><h3>Codex-Prüfung</h3><p>Codex prüft Diff, Qualität und Tests – und korrigiert bei Bedarf.</p></div></li>
-          <li class="step" data-step="6"><span class="number">06</span><div><h3>Ergebnis</h3><p>Du erhältst ein getestetes Resultat und eine verständliche Übergabe.</p></div></li>
-        </ol>
-      </section>
-
-      <section class="roles" aria-labelledby="roles-title">
-        <div class="section-heading">
-          <p class="eyebrow">Was passiert wo?</p>
-          <h2 id="roles-title">Klare Rollen, keine Black Box</h2>
-        </div>
-        <div class="role-grid">
-          <article><span class="role-icon" aria-hidden="true">✦</span><h3>Codex</h3><p>Übersetzt dein Ziel in einen Plan, steuert die Arbeit, prüft Änderungen und erklärt das Ergebnis.</p></article>
-          <article><span class="role-icon" aria-hidden="true">⌘</span><h3>Lokale KI</h3><p>Erstellt eng begrenzte Entwürfe auf deinem Rechner. Deine Daten verlassen dafür nicht automatisch den lokalen Ablauf.</p></article>
-          <article><span class="role-icon" aria-hidden="true">↗</span><h3>GitHub &amp; Notion</h3><p>GitHub bewahrt Code und Reviews; Notion hält Aufgaben, Entscheidungen und Teamwissen zusammen.</p></article>
-        </div>
-      </section>
-
-      <section class="note" aria-label="Sicherheitsprinzip">
-        <p><strong>Kontrollprinzip:</strong> Keine Commits, Pushes, Merges oder Deployments passieren ohne deine Freigabe.</p>
-      </section>
-    </main>
+        <section class="section resources"><div><p class="eyebrow">Gemeinsamer Kontext</p><h2>Ein Ort für Team &amp; Code</h2></div><div class="resource-grid"><a href="https://app.notion.com/p/40132468968681ffa154d44b8dd3598e?pvs=204" target="_blank" rel="noreferrer"><span>⌘</span><strong>Notion HQ</strong><small>Aufgaben, Entscheidungen, Meeting-Notizen</small></a><a href="https://github.com/Rukasu187/Hackathon1" target="_blank" rel="noreferrer"><span>↗</span><strong>GitHub</strong><small>Code, Pull Requests und Reviews</small></a></div></section>
+      </main>
+    </div>
     <script src="app.js"></script>
   </body>
 </html>

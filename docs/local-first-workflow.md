@@ -1,24 +1,27 @@
 # Local-first Coding-Workflow
 
-Dieser Workflow minimiert Codex-Aufwand, ohne lokale Entwürfe ungeprüft zu übernehmen.
+Dieser Workflow ist der verbindliche Standard in diesem Repository: Die lokale KI bearbeitet die Routinearbeit im robusten Text-/Patch-Modus, während Codex nur noch einen kleinen Auftrag formuliert und bei Ausnahmen eingreift.
+
+## Wann Codex direkt arbeitet
+
+Nur bei fehlgeschlagenem lokalen Lauf oder Test, mehreren voneinander abhängigen Dateien, Architektur, Authentifizierung, Datenmigration oder Sicherheit. Auch dann wird der Kontext auf die betroffenen Dateien und die konkrete Fehlermeldung begrenzt.
 
 ## Rollen
 
 | Rolle | Verantwortlichkeit |
 | --- | --- |
 | Mensch | Ziel, Produktentscheidung sowie Freigaben für Pull Requests, Merge und Deployment |
-| Codex | Handoff, Architektur, Sicherheitsreview, Integration und finale Tests |
-| Lokale KI | Kleine, strukturierte Entwürfe für Code, Tests, Dokumentation oder Log-Zusammenfassungen |
+| Codex | Kurzauftrag, Sicherheitsgrenzen, automatisches Prüfergebnis und nur bei Ausnahmen Architektur-/Sicherheitsreview |
+| Lokale KI | Kleine, strukturierte Patches für Code, Tests, Dokumentation oder Log-Zusammenfassungen |
 
 ## Ablauf
 
-1. Codex schreibt Ziel, betroffene Dateien, Tests und Nicht-Ziele in `.codex/handoff.md`.
-2. Starte einen lokalen Entwurf mit `./scripts/run-local-worker.ps1`.
-3. Bei relevantem Quellcode: `./scripts/run-local-worker.ps1 -ContextFile src/datei.ts`.
-4. Die lokale KI speichert ausschließlich einen Vorschlag in `.codex/local-draft.md`.
-5. Prüfe ihn mit `./scripts/check-local-draft.ps1`.
-6. Codex übernimmt nur die passenden Teile, prüft den Diff und führt die Handoff-Tests aus.
-7. Erst nach menschlicher Freigabe folgen Commit, Pull Request, Merge oder Deployment.
+1. Der Handoff nennt genau eine Ziel-Datei und die Tests.
+2. Starte einen kleinen lokalen Entwurf, zum Beispiel `./scripts/run-local-worker.ps1 -Task "Ändere nur den Button-Zustand." -ContextFile app.js`.
+3. Die lokale KI erhält maximal 8.000 Kontextzeichen insgesamt und speichert ihren Vorschlag als lokale Sitzungsdatei unter `~/.codex/local-sessions/Hackathon/` außerhalb des Projekts.
+4. Prüfe und übernimm den Ein-Datei-Patch automatisch: `./scripts/apply-local-patch.ps1 -AllowedFile app.js -Apply`.
+5. Führe die Handoff-Tests aus. Nur bei einem Fehler, mehreren Dateien oder Sicherheits-/Architekturthemen prüft Codex den vollständigen Entwurf.
+6. Erst nach menschlicher Freigabe folgen Commit, Pull Request, Merge oder Deployment.
 
 ## Entwurfsformat
 
@@ -29,7 +32,7 @@ Jeder lokale Entwurf besitzt diese vier Abschnitte:
 3. `## Tests`
 4. `## Risiken`
 
-Der Patch wird nicht automatisch ausgeführt. Das verhindert, dass ein schwächeres lokales Modell unerwartete Datei-, Git- oder Tool-Aktionen auslöst.
+Die sichere Übernahme ist nur für einen Ein-Datei-Patch möglich. Das Skript blockiert `.env`, `.git`, Binärdaten, Umbenennungen, neue Dateien und jeden abweichenden Dateipfad. Bei fehlerhaften Diff-Köpfen akzeptiert es nur einen alten Kontext, der genau einmal in der erlaubten Datei vorkommt; erst dann wird die Änderung übernommen. Es erstellt keinen Commit und führt keinen Push, Merge oder Deploy aus.
 
 ## Aufgabenrouting
 
@@ -47,11 +50,12 @@ Ein lokaler Vorschlag wird nur übernommen, wenn:
 - der Patch zum Handoff passt,
 - die definierten Tests erfolgreich sind,
 - `git diff --check` fehlerfrei ist und
-- Codex keine Sicherheits- oder Architekturprobleme findet.
+- für Routineaufgaben das automatisierte Patch-Gate erfolgreich ist; Codex prüft nur bei Fehlern oder erhöhtem Risiko zusätzlich.
 
 ## Sicherheit
 
 - Der lokale Worker erhält nur `AGENTS.md`, den Handoff und ausdrücklich angegebene Dateien.
+- Der gesamte Kontext ist auf 8.000 Zeichen begrenzt; pro Datei auf 3.500 Zeichen.
 - `.env`-Dateien sind ausgeschlossen.
 - Der lokale Entwurf ist in `.gitignore`, damit Projektkontext nicht versehentlich in GitHub landet.
 - Es gibt keine automatische Übernahme, keinen Commit, keinen Push, keinen Merge und kein Deployment.

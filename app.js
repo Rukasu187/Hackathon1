@@ -1,32 +1,12 @@
-const startButton = document.querySelector('#start-flow');
-const status = document.querySelector('#flow-status');
-const steps = [...document.querySelectorAll('.step')];
-let timerIds = [];
-
-function clearFlow() {
-  timerIds.forEach((timerId) => window.clearTimeout(timerId));
-  timerIds = [];
-  steps.forEach((step) => step.classList.remove('is-active'));
-}
-
-function playFlow() {
-  clearFlow();
-  startButton.disabled = true;
-  status.textContent = 'Ablauf läuft: Wir beginnen mit deinem Auftrag.';
-
-  steps.forEach((step, index) => {
-    const timerId = window.setTimeout(() => {
-      steps.forEach((item) => item.classList.remove('is-active'));
-      step.classList.add('is-active');
-      status.textContent = `Schritt ${index + 1} von ${steps.length}: ${step.querySelector('h3').textContent}.`;
-
-      if (index === steps.length - 1) {
-        startButton.disabled = false;
-        status.textContent = 'Fertig: Ergebnis geprüft und nachvollziehbar übergeben.';
-      }
-    }, index * 1100);
-    timerIds.push(timerId);
-  });
-}
-
-startButton.addEventListener('click', playFlow);
+const tasks=[{title:'Erfolgskriterium formulieren',area:'Produkt',owner:'LR',status:'Bereit'},{title:'Problem-Interviews auswerten',area:'Recherche',owner:'MK',status:'In Arbeit'},{title:'Lösungsansatz skizzieren',area:'Produkt',owner:'AS',status:'In Arbeit'},{title:'Demo-Story visualisieren',area:'Design',owner:'JN',status:'Review'},{title:'Pitch-Opening schreiben',area:'Pitch',owner:'EP',status:'Bereit'},{title:'GitHub-Readme aktualisieren',area:'Design',owner:'LR',status:'Bereit'}];
+const ideas=[{title:'Lokaler Impact-Tracker',detail:'Macht Wirkung für Nutzer:innen messbar.',votes:5},{title:'KI-gestützter Team-Match',detail:'Verbindet Menschen mit passenden Mikroaufgaben.',votes:4},{title:'Circular Campus Map',detail:'Zeigt Ressourcen und Kreisläufe auf dem Campus.',votes:3},{title:'Skill-Swap Sprint',detail:'Tauscht Wissen in kurzen, konkreten Sessions.',votes:2}];
+const pitchItems=['Problem in einem Satz','Nutzer:innen klar beschrieben','Lösung als Demo sichtbar','Impact nachvollziehbar','Finale Call-to-Action'],storageKey='hackathon-hq-pitch-checklist',taskGrid=document.querySelector('#task-grid'),ideaList=document.querySelector('#idea-list'),checklist=document.querySelector('#checklist'),pitchScore=document.querySelector('#pitch-score');
+const statusClass=(status)=>({Bereit:'status-bereit','In Arbeit':'status-arbeit',Review:'status-review'})[status];
+function renderTasks(filter='all'){taskGrid.innerHTML=tasks.map(task=>`<article class="task ${filter!=='all'&&task.area!==filter?'hidden':''}"><div class="task-top"><span class="area">${task.area}</span><span class="pill ${statusClass(task.status)}">${task.status}</span></div><h3>${task.title}</h3><footer><span>${task.owner}</span><span>Heute</span></footer></article>`).join('')}
+function renderIdeas(){ideaList.innerHTML=ideas.map((idea,index)=>`<article class="idea"><div><strong>${idea.title}</strong><small>${idea.detail}</small></div><button class="vote" data-idea="${index}" type="button">▲ ${idea.votes}</button></article>`).join('')}
+function getChecked(){try{return JSON.parse(localStorage.getItem(storageKey))??[]}catch{return[]}}
+function renderChecklist(){const checked=getChecked();checklist.innerHTML=pitchItems.map((item,index)=>`<li><label><input type="checkbox" data-check="${index}" ${checked.includes(index)?'checked':''}><span>${item}</span></label></li>`).join('');pitchScore.textContent=`${checked.length}/${pitchItems.length}`}
+document.querySelectorAll('.filter').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(item=>item.classList.remove('active'));button.classList.add('active');renderTasks(button.dataset.filter)}));
+ideaList.addEventListener('click',event=>{const button=event.target.closest('[data-idea]');if(!button)return;ideas[Number(button.dataset.idea)].votes+=1;renderIdeas()});
+checklist.addEventListener('change',()=>{const checked=[...checklist.querySelectorAll('input:checked')].map(input=>Number(input.dataset.check));localStorage.setItem(storageKey,JSON.stringify(checked));pitchScore.textContent=`${checked.length}/${pitchItems.length}`});
+renderTasks();renderIdeas();renderChecklist();

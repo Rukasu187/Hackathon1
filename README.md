@@ -5,14 +5,14 @@ Gemeinsames Hackathon-Projekt mit lokalem Coding-Workflow.
 ## Ablauf
 
 ```text
-Idee / Issue → Codex plant → lokaler Entwurf → Codex-Review + Tests
+Idee / Issue → kurzer Handoff → lokaler Patch → automatisches Patch-Gate + Tests
 → Pull Request → menschliche Freigabe → Merge
 ```
 
 ## Rollen
 
-- **Codex:** Architektur, klarer Implementierungsauftrag, Review und Debugging.
-- **Lokale KI:** Liefert begrenzte Entwürfe (Plan, Patch, Tests, Risiken) auf Basis des Handoffs; führt keine Tools oder Git-Befehle aus.
+- **Codex:** Kurzer Implementierungsauftrag, Sicherheitsgrenzen und Hilfe nur bei Fehlern, Architektur oder Sicherheit.
+- **Lokale KI:** Liefert für eine explizite Datei einen begrenzten Entwurf (Plan, Patch, Tests, Risiken); sie läuft nur im Textmodus und führt keine Tools oder Git-Befehle aus.
 - **Team:** Produktumfang, Demo, Sicherheit und Merge-Freigabe.
 
 ## Start
@@ -24,20 +24,26 @@ Idee / Issue → Codex plant → lokaler Entwurf → Codex-Review + Tests
 .\scripts\start-task-branch.ps1 -Branch feature/kurze-beschreibung
 ```
 
-3. Starte den lokalen Entwurfs-Worker. Ohne Parameter verwendet er den aktuellen Handoff:
+3. Starte den lokalen Worker mit einer kleinen Aufgabe und höchstens einer Kontextdatei:
 
 ```powershell
-.\scripts\run-local-worker.ps1
+.\scripts\run-local-worker.ps1 -Task "Ändere nur die Validierung." -ContextFile scripts/check-local-draft.ps1
 ```
 
-4. Der Worker speichert den Entwurf in `.codex/local-draft.md`. Lass Codex anschließend den Entwurf, `git diff` und die Tests gegen den Handoff prüfen. Der Entwurf wird nie automatisch angewendet.
+4. Der Worker speichert den Entwurf als lokale Sitzungsdatei unter `~/.codex/local-sessions/Hackathon/` außerhalb des Projekts. Bei einer Ein-Datei-Aufgabe prüfst und übernimmst du ihn über das abgesicherte Patch-Gate:
+
+```powershell
+.\scripts\apply-local-patch.ps1 -AllowedFile scripts/check-local-draft.ps1 -Apply
+```
+
+Das Patch-Gate lässt nur genau diese Datei zu. Danach führst du die Handoff-Tests aus. Codex ist erst bei einem Fehler, bei mehreren Dateien oder bei Architektur und Sicherheit nötig.
 5. Erst nach dem Review erstellst du einen Pull Request. Merge und Deploy bleiben menschliche Entscheidungen.
 
 ## Was die Automatisierung prüft
 
 - Der lokale Worker prüft, ob Ollama und das gewählte Modell verfügbar sind.
-- Er übergibt nur Handoff, Agentenregeln und explizit angegebene Projektdateien. `.env`-Dateien sind ausgeschlossen.
-- Er darf weder committen noch pushen, führt keine Tools aus und hinterlässt einen standardisierten Entwurf für das Codex-Review.
+- Er übergibt nur Handoff, Agentenregeln und höchstens eine explizit angegebene Projektdatei. Der Kontext ist insgesamt auf 8.000 Zeichen begrenzt; `.env`-Dateien sind ausgeschlossen.
+- Vor der Generierung prüft er, ob Ollama und das gewählte Modell bereit sind. Er darf weder committen noch pushen, führt keine Tools aus und hinterlässt einen standardisierten Entwurf. Das lokale Patch-Gate übernimmt nur einen technisch gültigen Patch für die vorher erlaubte Datei.
 
 ## Modell-Routing
 
@@ -48,3 +54,5 @@ Idee / Issue → Codex plant → lokaler Entwurf → Codex-Review + Tests
 Codex bleibt für Architektur, Security, Integration und den finalen Test-Review zuständig. Lokale Entwürfe werden erst nach erfolgreichem Qualitäts-Gate übernommen.
 
 Die vollständige Anleitung mit Rollen, Sicherheitsregeln und Aufgabenrouting findest du in [docs/local-first-workflow.md](docs/local-first-workflow.md).
+
+Der nachvollziehbare End-to-End-Test der Pipeline ist in [docs/habit-tracker-pipeline-test.md](docs/habit-tracker-pipeline-test.md) dokumentiert.
