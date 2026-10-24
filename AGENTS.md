@@ -1,20 +1,8 @@
-# Agent-Regeln
+# Hackathon
 
-## Arbeitsablauf
-1. Lies zuerst `.codex/handoff.md`.
-2. Erstelle vor einer Implementierung einen kurzen Plan mit höchstens acht Punkten.
-3. Begrenze Änderungen auf den beschriebenen Auftrag.
-4. Führe die im Handoff genannten Tests aus und dokumentiere ihr Ergebnis.
-
-## Sicherheit und Git
-- Keine Secrets, Tokens oder `.env`-Dateien ausgeben, committen oder verändern.
-- Keine Deployments, Releases, Merges oder Pushes ohne menschliche Freigabe.
-- Der lokale Coding-Agent erstellt keine Commits und wechselt keinen Branch.
-- Jede Funktion kommt in einen eigenen Branch; Änderungen werden per Pull Request integriert.
-- Pull Requests prüfen auf funktionale Fehler, Sicherheitsrisiken und fehlende Tests.
-
-## Übergabe zwischen Agenten
-- Codex erstellt oder aktualisiert `.codex/handoff.md`.
-- Der lokale Coding-Agent implementiert ausschließlich diesen Auftrag.
-- Der lokale Coding-Agent beendet jeden Lauf mit einem strukturierten Bericht in `.codex/local-worker-report.md`.
-- Codex prüft danach den Diff gegen den Handoff.
+- Lies/aktualisiere `.codex/handoff.md`, plane kurz (max. 8 Punkte), bleibe im Auftrag und teste.
+- **Local-first:** Routinearbeit zuerst lokal; nur Handoff + eine Ziel-Datei, max. 8.000 Zeichen, Text/Patch ohne Tools.
+- Gültige Ein-Datei-Patches: `scripts/apply-local-patch.ps1 -AllowedFile <datei> -Apply`. Codex codet nur bei Fehlern, mehreren Dateien, Architektur, Auth, Migration oder Sicherheit.
+- Halte Kontext, Antworten, Diffs und Logs klein; externe Recherche/Tools nur wenn nötig.
+- Keine Secrets/`.env`; keine Commits, Pushes, Merges oder Deployments. Lokale KI wechselt keinen Branch und committet nicht.
+- Jede Funktion: Branch + PR mit Fehler-, Sicherheits- und Testreview. Sitzungsentwürfe nie in Git. Details: `docs/local-first-workflow.md`.

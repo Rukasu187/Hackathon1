@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#4f46e5" />
+    <title>Habit Flow</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="hero">
+        <div><p class="eyebrow">DEIN ALLTAG, DEIN RHYTHMUS</p><h1>Habit Flow</h1><p class="hero-copy">Kleine Schritte, sichtbar gemacht.</p></div>
+        <div class="date-card" aria-label="Heutiges Datum"><span id="today-weekday"></span><strong id="today-date"></strong></div>
+      </header>
+
+      <section class="summary-grid" aria-label="Deine heutige Übersicht">
+        <article class="summary-card primary-card"><div class="summary-label">Heute erledigt</div><div class="summary-value"><span id="completed-count">0</span><small id="total-count"> / 0</small></div><div class="progress-track" aria-hidden="true"><span id="daily-progress"></span></div><p id="progress-label">Starte mit deiner ersten Gewohnheit.</p></article>
+        <article class="summary-card"><div class="summary-icon" aria-hidden="true">⚡</div><div class="summary-label">Tagesstreak</div><div class="summary-value"><span id="streak-count">0</span><small> Tage</small></div><p>Mindestens eine Gewohnheit pro Tag.</p></article>
+        <article class="summary-card"><div class="summary-icon" aria-hidden="true">◎</div><div class="summary-label">Diese Woche</div><div class="summary-value"><span id="week-count">0</span><small> Erledigungen</small></div><p>Dein Fortschritt der letzten 7 Tage.</p></article>
+      </section>
+
+      <section class="panel add-panel" aria-labelledby="add-heading">
+        <div class="section-heading"><div><p class="eyebrow">NEUE ROUTINE</p><h2 id="add-heading">Was möchtest du fest verankern?</h2></div></div>
+        <form id="habit-form">
+          <label class="field field-title"><span>Name der Gewohnheit</span><input id="habit-title" name="title" type="text" maxlength="60" placeholder="z. B. 20 Minuten lesen" required /></label>
+          <label class="field"><span>Kategorie</span><select id="habit-category" name="category"><option>Gesundheit</option><option>Fokus</option><option>Lernen</option><option>Achtsamkeit</option><option>Alltag</option></select></label>
+          <label class="field goal-field"><span>Wochenziel</span><select id="habit-goal" name="goal"><option value="3">3×</option><option value="5" selected>5×</option><option value="7">7×</option></select></label>
+          <button class="button button-primary" type="submit"><span aria-hidden="true">+</span> Gewohnheit anlegen</button>
+        </form>
+      </section>
+
+      <section class="panel habits-panel" aria-labelledby="habits-heading">
+        <div class="section-heading habits-heading"><div><p class="eyebrow">DEINE ROUTINEN</p><h2 id="habits-heading">Heute zählt</h2></div><div class="toolbar" aria-label="Daten verwalten"><button id="export-button" class="button button-quiet" type="button">Export</button><label class="button button-quiet import-label">Import<input id="import-input" type="file" accept="application/json" /></label></div></div>
+        <div class="filter-group" role="group" aria-label="Gewohnheiten filtern"><button class="filter active" data-filter="all" type="button">Alle</button><button class="filter" data-filter="open" type="button">Offen</button><button class="filter" data-filter="done" type="button">Erledigt</button></div>
+        <ul id="habit-list" class="habit-list"></ul>
+        <div id="empty-state" class="empty-state" hidden><div aria-hidden="true">✦</div><h3>Noch keine Gewohnheiten</h3><p>Wähle eine kleine Routine, die du heute beginnen kannst.</p></div>
+      </section>
+      <p id="message" class="message" role="status" aria-live="polite"></p>
+    </main>
+
+    <dialog id="edit-dialog"><form id="edit-form" method="dialog"><div class="dialog-heading"><h2>Gewohnheit bearbeiten</h2><button class="icon-button" value="cancel" aria-label="Dialog schließen" type="submit">×</button></div><label class="field"><span>Name</span><input id="edit-title" maxlength="60" required /></label><label class="field"><span>Kategorie</span><select id="edit-category"><option>Gesundheit</option><option>Fokus</option><option>Lernen</option><option>Achtsamkeit</option><option>Alltag</option></select></label><label class="field"><span>Wochenziel</span><select id="edit-goal"><option value="3">3×</option><option value="5">5×</option><option value="7">7×</option></select></label><div class="dialog-actions"><button class="button button-quiet" value="cancel" type="submit">Abbrechen</button><button class="button button-primary" value="default" type="submit">Speichern</button></div></form></dialog>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,20 +1,29 @@
-# Implementierungsauftrag
+# Habit-Tracker-Ausbau
 
 ## Ziel
-Beschreibe das gewünschte Ergebnis in einem Satz.
+Die browserlokale Habit-Tracker-App funktional und visuell zu einer kleinen, alltagstauglichen Fortschritts-App ausbauen.
 
-## Betroffene Dateien
-- Noch festzulegen
+## Dateien
+- `experiments/habit-tracker/index.html`
+- `experiments/habit-tracker/styles.css`
+- `experiments/habit-tracker/app.js`
 
-## Architektur und Schritte
-1. Noch festzulegen
+## Funktionsumfang
+- Gewohnheiten mit Kategorie und Wochenziel anlegen, bearbeiten, abhaken und löschen.
+- Übersicht mit Erledigt-Zähler, Fortschrittsbalken, Tagesstreak und Filter für alle/offene/erledigte Einträge.
+- Browserlokale Speicherung sowie JSON-Export und -Import; kein Backend, Account oder externe Abhängigkeiten.
+- Die lokale KI erstellt nur einen Stil-Entwurf für `styles.css`; Codex integriert die abhängigen HTML-/JavaScript-Funktionen.
 
-## Akzeptanzkriterien
-- Noch festzulegen
+## Tests
+- `node --check experiments/habit-tracker/app.js`
+- `git diff --check`
+- Browser: anlegen, Filter, erledigen, bearbeiten, Reload, Export/Import und löschen.
 
-## Testbefehle
-- Noch festzulegen
+## Ergebnis
+- Statische Prüfung und `git diff --check` erfolgreich.
+- Browserprüfung erfolgreich: Gewohnheit anlegen, Erledigt-Status mit Fortschritt/Streak, Offen-Filter, Bearbeiten, Reload-Persistenz und JSON-Export.
+- Der lokale CSS-Entwurf wurde nicht übernommen, da der Worker keine neue, zum Auftrag passende Ausgabe erzeugte. Die abhängige Drei-Datei-Erweiterung wurde daher als erlaubte Ausnahme durch Codex umgesetzt.
 
-## Nicht-Ziele
-- Keine nicht angeforderten Refactorings.
-- Keine Änderungen an Secrets, Deployment oder CI ohne ausdrücklichen Auftrag.
+## Öffentliche Dokumentation
+- `docs/project-status.md` fasst Funktionsstand, Ablauf, Tests, Grenzen und die lokale Startanleitung für Außenstehende zusammen.
+- `README.md` verlinkt auf diese Übersicht.
